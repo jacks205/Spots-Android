@@ -7,8 +7,10 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
+import com.jacks205.spots.model.ParkingLevel;
 import com.jacks205.spots.model.Segment;
 
 /**
@@ -16,22 +18,24 @@ import com.jacks205.spots.model.Segment;
  */
 public class PieChartView extends View {
 
-    private Segment[] pieSegments;
-    private int segmentTotalAll;
+    private ParkingLevel[] parkingLevels;
+    private int levelsTotalAll;
+
+    private static int BLACK = Color.parseColor("#16D8D8D8");
+    private static int GREEN = Color.parseColor("#FF1ABC9C");
+    private static int YELLOW = Color.parseColor("#FFFFDA3F");
+    private static int RED = Color.parseColor("#FFF05A52");
 
     public PieChartView(Context context, AttributeSet attrs){
         super(context, attrs);
-        setPieSegments(
-                new Segment[]{new Segment(50, 100), new Segment(25, 100), new Segment(50, 50), new Segment(10, 100)}
-        );
     }
 
-    public void setPieSegments(Segment[] pieSegments) throws IllegalArgumentException{
-        if(pieSegments == null || pieSegments.length < 1) throw new IllegalArgumentException("pieSegments must be a length greater than 1.");
-        this.pieSegments = pieSegments;
-        segmentTotalAll = 0;
-        for (Segment segment : pieSegments){
-            segmentTotalAll += segment.total;
+    public void setLevelSegments(ParkingLevel[] parkingLevels) throws IllegalArgumentException{
+        if(parkingLevels == null || parkingLevels.length < 1) throw new IllegalArgumentException("pieSegments must be a length greater than 1.");
+        this.parkingLevels = parkingLevels;
+        levelsTotalAll = 0;
+        for (ParkingLevel level : parkingLevels){
+            levelsTotalAll += level.getTotal();
         }
     }
 
@@ -44,7 +48,7 @@ public class PieChartView extends View {
 
         //Base Circle
         Paint basePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        basePaint.setColor(Color.BLACK);
+        basePaint.setColor(BLACK);
         float baseRadius = width / 2;
         canvas.drawCircle(center.x, center.y, baseRadius, basePaint);
 
@@ -53,25 +57,24 @@ public class PieChartView extends View {
         //Semi-circles
         float lastAngle = 0;
         Paint semiPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        for(Segment segment : pieSegments) {
-            double percentFull = segment.value / segment.total;
-            if(percentFull >= 0.85){
-                semiPaint.setColor(Color.RED);
-            }else if(percentFull >= 0.55){
-                semiPaint.setColor(Color.YELLOW);
-            }else{
-                semiPaint.setColor(Color.GREEN);
-            }
+        for(ParkingLevel level : parkingLevels) {
+            double percentFull = (double)level.getAvailable() / level.getTotal();
             double percentDiff = 1 - percentFull;
-            float offset = baseRadius - centerRadius;
+            if(percentDiff >= 0.85){
+                semiPaint.setColor(RED);
+            }else if(percentDiff >= 0.55){
+                semiPaint.setColor(YELLOW);
+            }else {
+                semiPaint.setColor(GREEN);
+            }
             RectF semi = new RectF(0, 0, width, height);
             float dx = (float) (width * percentDiff) / 4;
             float dy = (float) (height * percentDiff) / 4;
             semi.inset(dx, dy);
-            float startAngle = lastAngle;
-            float endAngle = lastAngle + (float)segment.total / segmentTotalAll * 360;
+            float startAngle = lastAngle + 2f;
+            float endAngle = (float)level.getTotal() / levelsTotalAll * 360;
             canvas.drawArc(semi, startAngle, endAngle, true, semiPaint);
-            lastAngle = endAngle;
+            lastAngle += endAngle;
         }
 
         //Center Circle
