@@ -63,7 +63,6 @@ public class PieChartView extends View {
                 semiPaint.setColor(Color.GREEN);
             }
             double percentDiff = 1 - percentFull;
-            float offset = baseRadius - centerRadius;
             RectF semi = new RectF(0, 0, width, height);
             float dx = (float) (width * percentDiff) / 4;
             float dy = (float) (height * percentDiff) / 4;
