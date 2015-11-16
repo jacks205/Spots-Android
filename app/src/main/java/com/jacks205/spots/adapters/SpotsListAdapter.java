@@ -1,11 +1,11 @@
 package com.jacks205.spots.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.jacks205.spots.R;
@@ -14,6 +14,8 @@ import com.jacks205.spots.model.ParkingStructure;
 import com.jacks205.spots.views.PieChartView;
 
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Date;
 
 /**
@@ -47,14 +49,74 @@ public class SpotsListAdapter  extends BaseAdapter{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Holder holder = new Holder();
-        View rowView = inflater.inflate(R.layout.piechart_list_item, null);
+
+        ParkingLevel[] levels = structures[position].getLevels();
+        int totalLevels = levels.length;
+        View rowView;
+        if(totalLevels > 4){
+            rowView = inflater.inflate(R.layout.piechart_list_item_5levels, parent, false);
+        }else{
+            rowView = inflater.inflate(R.layout.piechart_list_item_2levels, parent, false);
+        }
 
         holder.nameTextView = (TextView)rowView.findViewById(R.id.strutureName);
         String name = structures[position].getName();
         holder.nameTextView.setText(uppercaseEachWord(name));
 
+        holder.totalSpotsTextView = (TextView) rowView.findViewById(R.id.totalSpotsTextView);
+        String totalSpotsStr = structures[position].getAvailable() + " spots available";
+        holder.totalSpotsTextView.setText(totalSpotsStr);
+
+        holder.level1Tv = (TextView)rowView.findViewById(R.id.level1spots);
+        int numSpots = levels[0].getAvailable();
+        holder.level1Tv.setText(numSpots + " spots");
+        holder.level1Label = (TextView)rowView.findViewById(R.id.level1Label);
+        String labelName = levels[0].getName();
+        holder.level1Label.setText("LEVEL " + labelName);
+
+
+        holder.level2Tv = (TextView)rowView.findViewById(R.id.level2spots);
+        numSpots = levels[1].getAvailable();
+        holder.level2Tv.setText(numSpots + " spots");
+        holder.level2Label = (TextView)rowView.findViewById(R.id.level2Label);
+        labelName = levels[1].getName();
+        holder.level2Label.setText("LEVEL " + labelName);
+
+
+        if(totalLevels > 4){
+
+            holder.level3Tv = (TextView)rowView.findViewById(R.id.level3spots);
+            numSpots = levels[2].getAvailable();
+            holder.level3Tv.setText(numSpots + " spots");
+            holder.level3Label = (TextView)rowView.findViewById(R.id.level3Label);
+            labelName = levels[2].getName();
+            holder.level3Label.setText("LEVEL " + labelName);
+
+
+            holder.level4Tv = (TextView)rowView.findViewById(R.id.level4spots);
+            numSpots = levels[3].getAvailable();
+            holder.level4Tv.setText(numSpots + " spots");
+            holder.level4Label = (TextView)rowView.findViewById(R.id.level4Label);
+            labelName = levels[3].getName();
+            holder.level4Label.setText("LEVEL " + labelName);
+
+
+            holder.level5Tv = (TextView)rowView.findViewById(R.id.level5spots);
+            numSpots = levels[4].getAvailable();
+            holder.level5Tv.setText(numSpots + " spots");
+            holder.level5Label = (TextView)rowView.findViewById(R.id.level5Label);
+            labelName = levels[4].getName();
+            holder.level5Label.setText("LEVEL " + labelName);
+
+
+        }
+
+        holder.availablePercent = (TextView)rowView.findViewById(R.id.availablePercent);
+        double percent = (double)structures[position].getAvailable() / structures[position].getTotal() * 100;
+        NumberFormat formatter = new DecimalFormat("###");
+        holder.availablePercent.setText(formatter.format(percent) + "%");
+
         holder.pieChartView = (PieChartView)rowView.findViewById(R.id.pieChartView);
-        ParkingLevel[] levels = structures[position].getLevels();
         holder.pieChartView.setLevelSegments(levels);
 
         return rowView;
@@ -67,7 +129,22 @@ public class SpotsListAdapter  extends BaseAdapter{
 
     class Holder {
         TextView nameTextView;
+        TextView totalSpotsTextView;
         PieChartView pieChartView;
+
+        TextView level1Label,
+                level2Label,
+                level3Label,
+                level4Label,
+                level5Label;
+
+        TextView level1Tv,
+            level2Tv,
+            level3Tv,
+            level4Tv,
+            level5Tv;
+
+        TextView availablePercent;
     }
 
 

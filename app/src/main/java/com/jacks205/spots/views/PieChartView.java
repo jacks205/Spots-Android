@@ -7,27 +7,45 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.RectF;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import com.jacks205.spots.model.ParkingLevel;
-import com.jacks205.spots.model.Segment;
 
 /**
  * Created by markjackson on 11/14/15.
  */
 public class PieChartView extends View {
 
-    private ParkingLevel[] parkingLevels;
-    private int levelsTotalAll;
+    private ParkingLevel[] parkingLevels = new ParkingLevel[]{
+            new ParkingLevel("Level 1", 202, 401),
+            new ParkingLevel("Level 2", 439, 470)};
+    private int levelsTotalAll = 871;
 
     private static int BLACK = Color.parseColor("#16D8D8D8");
+    private static int GRAY = Color.parseColor("#FFEAEAEA");
     private static int GREEN = Color.parseColor("#FF1ABC9C");
     private static int YELLOW = Color.parseColor("#FFFFDA3F");
     private static int RED = Color.parseColor("#FFF05A52");
 
+    private Paint basePaint;
+    private Paint semiPaint;
+    private Paint centerPaint;
+    private Paint linePaint;
+
     public PieChartView(Context context, AttributeSet attrs){
         super(context, attrs);
+
+        basePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        basePaint.setColor(BLACK);
+
+        semiPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+
+        centerPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        centerPaint.setColor(Color.WHITE);
+
+        linePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        linePaint.setColor(GRAY);
+        linePaint.setStrokeWidth(2);
     }
 
     public void setLevelSegments(ParkingLevel[] parkingLevels) throws IllegalArgumentException{
@@ -45,10 +63,7 @@ public class PieChartView extends View {
         int width = getWidth();
         int height = getHeight();
         Point center = new Point(width / 2, height / 2);
-
         //Base Circle
-        Paint basePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        basePaint.setColor(BLACK);
         float baseRadius = width / 2;
         canvas.drawCircle(center.x, center.y, baseRadius, basePaint);
 
@@ -56,7 +71,6 @@ public class PieChartView extends View {
 
         //Semi-circles
         float lastAngle = 0;
-        Paint semiPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         for(ParkingLevel level : parkingLevels) {
             double percentFull = (double)level.getAvailable() / level.getTotal();
             double percentDiff = 1 - percentFull;
@@ -78,8 +92,10 @@ public class PieChartView extends View {
         }
 
         //Center Circle
-        Paint centerPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        centerPaint.setColor(Color.WHITE);
-        canvas.drawCircle(center.x ,center.y , centerRadius, centerPaint);
+        canvas.drawCircle(center.x, center.y, centerRadius, centerPaint);
+
+        //Center Line
+        double lineLength = width / 3 * 0.5;
+        canvas.drawLine(center.x - (float)lineLength / 2, center.y, center.x + (float)lineLength / 2, center.y, linePaint);
     }
 }

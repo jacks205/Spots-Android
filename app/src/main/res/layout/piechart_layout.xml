@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="150dp"
+    android:layout_below="@+id/totalSpotsTextView"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="39dp"
+    android:id="@+id/pieChartViewLayout">
+
+    <com.jacks205.spots.views.PieChartView
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:id="@+id/pieChartView"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="41%"
+        android:id="@+id/availablePercent"
+        android:background="@android:color/transparent"
+        android:textColor="@color/lightgray"
+        android:textSize="16dp"
+        android:layout_marginBottom="6dp"
+        android:gravity="center"
+        android:layout_above="@+id/textView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="FULL"
+        android:id="@+id/textView"
+        android:background="@android:color/transparent"
+        android:textColor="@color/lightgray"
+        android:textSize="12dp"
+        android:layout_marginBottom="55dp"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+
+</RelativeLayout>

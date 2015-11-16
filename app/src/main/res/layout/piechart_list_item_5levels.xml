@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="300dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Lastinger"
+        android:id="@+id/strutureName"
+        android:textColor="@color/lightwhite"
+        android:gravity="center"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:textSize="18dp"/>
+
+    <RelativeLayout
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_below="@+id/totalSpotsTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="39dp"
+        android:id="@+id/pieChartViewLayout">
+
+        <com.jacks205.spots.views.PieChartView
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:id="@+id/pieChartView"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="41%"
+            android:id="@+id/availablePercent"
+            android:background="@android:color/transparent"
+            android:textColor="@color/lightgray"
+            android:textSize="16dp"
+            android:layout_marginBottom="6dp"
+            android:gravity="center"
+            android:layout_above="@+id/textView"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="FULL"
+            android:id="@+id/textView"
+            android:background="@android:color/transparent"
+            android:textColor="@color/lightgray"
+            android:textSize="12dp"
+            android:layout_marginBottom="55dp"
+            android:gravity="center"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="147 spots available"
+        android:textColor="@color/gray"
+        android:id="@+id/totalSpotsTextView"
+        android:layout_below="@+id/strutureName"
+        android:layout_centerHorizontal="true"
+        android:textSize="13.5dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="LEVEL 1"
+        android:id="@+id/level1Label"
+        android:layout_alignBottom="@+id/pieChartViewLayout"
+        android:layout_toRightOf="@+id/pieChartViewLayout"
+        android:layout_toEndOf="@+id/pieChartViewLayout"
+        android:textColor="@color/gray"
+        android:textSize="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="20 spots"
+        android:id="@+id/level1spots"
+        android:layout_below="@+id/level1Label"
+        android:layout_alignLeft="@+id/level1Label"
+        android:layout_alignStart="@+id/level1Label"
+        android:textColor="@android:color/white"
+        android:textSize="13.5dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="LEVEL 2"
+        android:id="@+id/level2Label"
+        android:textColor="@color/gray"
+        android:textSize="10dp"
+        android:layout_above="@+id/level2spots"
+        android:layout_toLeftOf="@+id/totalSpotsTextView"
+        android:layout_toStartOf="@+id/totalSpotsTextView" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="50 spots"
+        android:id="@+id/level2spots"
+        android:textColor="@color/lightwhite"
+        android:textSize="13.5dp"
+        android:layout_below="@+id/level1spots"
+        android:layout_alignLeft="@+id/level2Label"
+        android:layout_alignStart="@+id/level2Label" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="LEVEL 3"
+        android:id="@+id/level3Label"
+        android:textColor="@color/gray"
+        android:textSize="10dp"
+        android:layout_below="@+id/level5spots"
+        android:layout_toLeftOf="@+id/level4spots"
+        android:layout_toStartOf="@+id/level4spots"
+        android:layout_marginTop="41dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="123 spots"
+        android:id="@+id/level3spots"
+        android:textColor="@android:color/white"
+        android:textSize="13.5dp"
+        android:layout_below="@+id/level3Label"
+        android:layout_alignLeft="@+id/level3Label"
+        android:layout_alignStart="@+id/level3Label" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="LEVEL 4"
+        android:id="@+id/level4Label"
+        android:textColor="@color/gray"
+        android:textSize="10dp"
+        android:layout_below="@+id/totalSpotsTextView"
+        android:layout_toLeftOf="@+id/pieChartViewLayout"
+        android:layout_toStartOf="@+id/pieChartViewLayout"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="19dp"
+        android:layout_marginEnd="19dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="19 spots"
+        android:id="@+id/level4spots"
+        android:textColor="@android:color/white"
+        android:textSize="13.5dp"
+        android:layout_below="@+id/level4Label"
+        android:layout_alignLeft="@+id/level4Label"
+        android:layout_alignStart="@+id/level4Label" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="LEVEL 5"
+        android:id="@+id/level5Label"
+        android:textColor="@color/gray"
+        android:textSize="10dp"
+        android:layout_below="@+id/level4spots"
+        android:layout_alignRight="@+id/level1spots"
+        android:layout_alignEnd="@+id/level1spots" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="34 spots"
+        android:id="@+id/level5spots"
+        android:textColor="@android:color/white"
+        android:textSize="13.5dp"
+        android:layout_below="@+id/level5Label"
+        android:layout_alignLeft="@+id/level5Label"
+        android:layout_alignStart="@+id/level5Label" />
+
+</RelativeLayout>
