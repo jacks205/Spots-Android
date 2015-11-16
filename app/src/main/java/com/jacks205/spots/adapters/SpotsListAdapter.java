@@ -1,11 +1,11 @@
 package com.jacks205.spots.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.jacks205.spots.R;
@@ -47,7 +47,15 @@ public class SpotsListAdapter  extends BaseAdapter{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Holder holder = new Holder();
-        View rowView = inflater.inflate(R.layout.piechart_list_item, null);
+
+        ParkingLevel[] levels = structures[position].getLevels();
+        int totalLevels = levels.length;
+        View rowView;
+        if(totalLevels > 4){
+            rowView = inflater.inflate(R.layout.piechart_list_item_5levels, parent, false);
+        }else{
+            rowView = inflater.inflate(R.layout.piechart_list_item_2levels, parent, false);
+        }
 
         holder.nameTextView = (TextView)rowView.findViewById(R.id.strutureName);
         String name = structures[position].getName();
@@ -57,8 +65,31 @@ public class SpotsListAdapter  extends BaseAdapter{
         String totalSpotsStr = structures[position].getTotal() + " spots available";
         holder.totalSpotsTextView.setText(totalSpotsStr);
 
+        holder.level1Tv = (TextView)rowView.findViewById(R.id.level1spots);
+        int numSpots = levels[0].getAvailable();
+        holder.level1Tv.setText(numSpots + " spots");
+
+        holder.level2Tv = (TextView)rowView.findViewById(R.id.level2spots);
+        numSpots = levels[1].getAvailable();
+        holder.level2Tv.setText(numSpots + " spots");
+
+        if(totalLevels > 4){
+
+            holder.level3Tv = (TextView)rowView.findViewById(R.id.level3spots);
+            numSpots = levels[2].getAvailable();
+            holder.level3Tv.setText(numSpots + " spots");
+
+            holder.level4Tv = (TextView)rowView.findViewById(R.id.level4spots);
+            numSpots = levels[3].getAvailable();
+            holder.level4Tv.setText(numSpots + " spots");
+
+            holder.level5Tv = (TextView)rowView.findViewById(R.id.level5spots);
+            numSpots = levels[4].getAvailable();
+            holder.level5Tv.setText(numSpots + " spots");
+
+        }
+
         holder.pieChartView = (PieChartView)rowView.findViewById(R.id.pieChartView);
-        ParkingLevel[] levels = structures[position].getLevels();
         holder.pieChartView.setLevelSegments(levels);
 
         return rowView;
@@ -73,6 +104,13 @@ public class SpotsListAdapter  extends BaseAdapter{
         TextView nameTextView;
         TextView totalSpotsTextView;
         PieChartView pieChartView;
+
+        TextView level1Tv,
+            level2Tv,
+            level3Tv,
+            level4Tv,
+            level5Tv;
+
     }
 
 

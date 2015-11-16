@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="289dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Lastinger"
+        android:id="@+id/strutureName"
+        android:textColor="@color/lightwhite"
+        android:gravity="center"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:textSize="18dp"/>
+
+    <com.jacks205.spots.views.PieChartView
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:id="@+id/pieChartView"
+        android:layout_below="@+id/totalSpotsTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="39dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="147 spots available"
+        android:textColor="@color/gray"
+        android:id="@+id/totalSpotsTextView"
+        android:layout_below="@+id/strutureName"
+        android:layout_centerHorizontal="true"
+        android:textSize="13.5dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="LEVEL 1"
+        android:id="@+id/textView"
+        android:layout_alignBottom="@+id/pieChartView"
+        android:layout_toRightOf="@+id/pieChartView"
+        android:layout_toEndOf="@+id/pieChartView"
+        android:textColor="@color/gray"
+        android:textSize="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="20 spots"
+        android:id="@+id/level1spots"
+        android:layout_below="@+id/textView"
+        android:layout_alignLeft="@+id/textView"
+        android:layout_alignStart="@+id/textView"
+        android:textColor="@android:color/white"
+        android:textSize="13.5dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="LEVEL 2"
+        android:id="@+id/textView3"
+        android:textColor="@color/gray"
+        android:textSize="10dp"
+        android:layout_below="@+id/totalSpotsTextView"
+        android:layout_toLeftOf="@+id/pieChartView"
+        android:layout_toStartOf="@+id/pieChartView"
+        android:layout_marginRight="19dp"
+        android:layout_marginEnd="19dp"
+        android:layout_marginTop="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="50 spots"
+        android:id="@+id/level2spots"
+        android:textColor="@color/lightwhite"
+        android:textSize="13.5dp"
+        android:layout_below="@+id/textView3"
+        android:layout_alignLeft="@+id/textView3"
+        android:layout_alignStart="@+id/textView3" />
+
+
+</RelativeLayout>

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FFD8D8D8</color>
+    <color name="black">#16D8D8D8</color>
     <color name="background">#FF161C25</color>
     <color name="yellow">#FFFFDA3F</color>
     <color name="red">#FFF05A52</color>
     <color name="green">#FF1ABC9C</color>
     <color name="dividerColor">#09FFFFFF</color>
-    <color name="gray">#3BFFFFFF</color>
+    <color name="gray">#4BFFFFFF</color>
+    <color name="lightwhite">#E0FFFFFF</color>
 </resources>

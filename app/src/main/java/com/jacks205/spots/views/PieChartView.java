@@ -7,19 +7,19 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.RectF;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import com.jacks205.spots.model.ParkingLevel;
-import com.jacks205.spots.model.Segment;
 
 /**
  * Created by markjackson on 11/14/15.
  */
 public class PieChartView extends View {
 
-    private ParkingLevel[] parkingLevels;
-    private int levelsTotalAll;
+    private ParkingLevel[] parkingLevels = new ParkingLevel[]{
+            new ParkingLevel("Level 1", 202, 401),
+            new ParkingLevel("Level 2", 439, 470)};
+    private int levelsTotalAll = 871;
 
     private static int BLACK = Color.parseColor("#16D8D8D8");
     private static int GREEN = Color.parseColor("#FF1ABC9C");
