@@ -113,6 +113,7 @@ public class SpotsListAdapter  extends BaseAdapter{
 
         holder.availablePercent = (TextView)rowView.findViewById(R.id.availablePercent);
         double percent = (double)structures[position].getAvailable() / structures[position].getTotal() * 100;
+        percent = 100 - percent;
         NumberFormat formatter = new DecimalFormat("###");
         holder.availablePercent.setText(formatter.format(percent) + "%");
 
