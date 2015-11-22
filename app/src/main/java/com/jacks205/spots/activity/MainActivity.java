@@ -1,6 +1,9 @@
 package com.jacks205.spots.activity;
 
 
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -24,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setActionBar();
-
         listView = (ListView)findViewById(R.id.listView);
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.mainlayout);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.green, R.color.yellow, R.color.red);
@@ -36,12 +38,24 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String school = prefs.getString("school", null);
+        if(school == null){
+            Intent i = new Intent(MainActivity.this, ChooseSchoolActivity.class);
+            startActivity(i);
+        }
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         refreshData();
+    }
+
+    @Override
+    public void onBackPressed() {
+//        super.onBackPressed();
     }
 
     private void refreshData(){
