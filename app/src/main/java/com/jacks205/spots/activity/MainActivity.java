@@ -47,8 +47,8 @@ public class MainActivity extends AppCompatActivity implements OnSpotsDataRetrie
 
         String school = prefs.getString("school", null);
         if(school == null){
-//            Intent i = new Intent(MainActivity.this, ChooseSchoolActivity.class);
-//            startActivity(i);
+            Intent i = new Intent(MainActivity.this, ChooseSchoolActivity.class);
+            startActivity(i);
         }
 
     }
