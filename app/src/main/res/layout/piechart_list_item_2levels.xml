@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="289dp">
+    android:layout_height="300dp">
 
     <TextView
         android:layout_width="wrap_content"
@@ -16,14 +16,56 @@
         android:layout_marginTop="15dp"
         android:textSize="18dp"/>
 
-    <com.jacks205.spots.views.PieChartView
-        android:layout_gravity="center_horizontal|center_vertical"
+    <RelativeLayout
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:id="@+id/pieChartView"
         android:layout_below="@+id/totalSpotsTextView"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="39dp" />
+        android:layout_marginTop="39dp"
+        android:id="@+id/pieChartViewLayout">
+
+        <com.jacks205.spots.views.PieChartView
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:id="@+id/pieChartView"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="41%"
+            android:id="@+id/availablePercent"
+            android:background="@android:color/transparent"
+            android:textColor="@color/lightgray"
+            android:textSize="16dp"
+            android:layout_marginBottom="6dp"
+            android:gravity="center"
+            android:layout_above="@+id/textView"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="FULL"
+            android:id="@+id/textView"
+            android:background="@android:color/transparent"
+            android:textColor="@color/lightgray"
+            android:textSize="12dp"
+            android:layout_marginBottom="55dp"
+            android:gravity="center"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+
+    </RelativeLayout>
 
     <TextView
         android:layout_width="wrap_content"
@@ -41,10 +83,10 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="LEVEL 1"
-        android:id="@+id/textView"
-        android:layout_alignBottom="@+id/pieChartView"
-        android:layout_toRightOf="@+id/pieChartView"
-        android:layout_toEndOf="@+id/pieChartView"
+        android:id="@+id/level1Label"
+        android:layout_alignBottom="@+id/pieChartViewLayout"
+        android:layout_toRightOf="@+id/pieChartViewLayout"
+        android:layout_toEndOf="@+id/pieChartViewLayout"
         android:textColor="@color/gray"
         android:textSize="10dp"/>
 
@@ -54,9 +96,9 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="20 spots"
         android:id="@+id/level1spots"
-        android:layout_below="@+id/textView"
-        android:layout_alignLeft="@+id/textView"
-        android:layout_alignStart="@+id/textView"
+        android:layout_below="@+id/level1Label"
+        android:layout_alignLeft="@+id/level1Label"
+        android:layout_alignStart="@+id/level1Label"
         android:textColor="@android:color/white"
         android:textSize="13.5dp"/>
 
@@ -65,12 +107,12 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="LEVEL 2"
-        android:id="@+id/textView3"
+        android:id="@+id/level2Label"
         android:textColor="@color/gray"
         android:textSize="10dp"
         android:layout_below="@+id/totalSpotsTextView"
-        android:layout_toLeftOf="@+id/pieChartView"
-        android:layout_toStartOf="@+id/pieChartView"
+        android:layout_toLeftOf="@+id/pieChartViewLayout"
+        android:layout_toStartOf="@+id/pieChartViewLayout"
         android:layout_marginRight="19dp"
         android:layout_marginEnd="19dp"
         android:layout_marginTop="20dp" />
@@ -83,9 +125,10 @@
         android:id="@+id/level2spots"
         android:textColor="@color/lightwhite"
         android:textSize="13.5dp"
-        android:layout_below="@+id/textView3"
-        android:layout_alignLeft="@+id/textView3"
-        android:layout_alignStart="@+id/textView3" />
+        android:layout_below="@+id/level2Label"
+        android:layout_alignLeft="@+id/level2Label"
+        android:layout_alignStart="@+id/level2Label" />
+
 
 
 </RelativeLayout>

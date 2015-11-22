@@ -8,4 +8,5 @@
     <color name="dividerColor">#09FFFFFF</color>
     <color name="gray">#4BFFFFFF</color>
     <color name="lightwhite">#E0FFFFFF</color>
+    <color name="lightgray">#6B21263C</color>
 </resources>
