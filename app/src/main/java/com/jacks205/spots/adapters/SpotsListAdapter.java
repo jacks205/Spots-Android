@@ -36,6 +36,14 @@ public class SpotsListAdapter  extends BaseAdapter{
         inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
+    public void setStructures(ParkingStructure[] structures) {
+        this.structures = structures;
+    }
+
+    public void setLastUpdated(Date lastUpdated) {
+        this.lastUpdated = lastUpdated;
+    }
+
     @Override
     public long getItemId(int position) {
         return position;

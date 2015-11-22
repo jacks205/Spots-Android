@@ -17,10 +17,11 @@ import com.jacks205.spots.listener.OnSpotsDataRetrievedListener;
 import com.jacks205.spots.model.ParkingStructure;
 import java.util.Date;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnSpotsDataRetrievedListener{
 
     ListView listView;
     SwipeRefreshLayout mSwipeRefreshLayout;
+    SpotsListAdapter spotsListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,15 +35,20 @@ public class MainActivity extends AppCompatActivity {
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                refreshData();
+                final Spots spots = Spots.getInstance();
+                spots.getParkingData(MainActivity.this);
             }
         });
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        //TODO: remove
+        prefs.edit().remove("school").commit();
+
         String school = prefs.getString("school", null);
         if(school == null){
-            Intent i = new Intent(MainActivity.this, ChooseSchoolActivity.class);
-            startActivity(i);
+//            Intent i = new Intent(MainActivity.this, ChooseSchoolActivity.class);
+//            startActivity(i);
         }
 
     }
@@ -50,7 +56,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        refreshData();
+        final Spots spots = Spots.getInstance();
+        spots.getParkingData(this);
     }
 
     @Override
@@ -58,21 +65,21 @@ public class MainActivity extends AppCompatActivity {
 //        super.onBackPressed();
     }
 
-    private void refreshData(){
-        Spots spots = Spots.getInstance();
-        spots.getParkingData(new OnSpotsDataRetrievedListener() {
-            @Override
-            public void onDataReceived(ParkingStructure[] structures, Date lastUpdated) {
-                listView.setAdapter(new SpotsListAdapter(MainActivity.this, structures, lastUpdated));
-                mSwipeRefreshLayout.setRefreshing(false);
-            }
+    public void onDataReceived(ParkingStructure[] structures, Date lastUpdated) {
+        if(spotsListAdapter == null){
+            spotsListAdapter = new SpotsListAdapter(MainActivity.this, structures, lastUpdated);
+            listView.setAdapter(spotsListAdapter);
+        } else {
+            spotsListAdapter.setStructures(structures);
+            spotsListAdapter.setLastUpdated(lastUpdated);
+            spotsListAdapter.notifyDataSetChanged();
+        }
+        mSwipeRefreshLayout.setRefreshing(false);
+    }
 
-            @Override
-            public void onDataError(Exception e) {
-                Toast.makeText(MainActivity.this, "Unable to retrieve parking data.", Toast.LENGTH_LONG).show();
-                mSwipeRefreshLayout.setRefreshing(false);
-            }
-        });
+    public void onDataError(Exception e) {
+        Toast.makeText(MainActivity.this, "Unable to retrieve parking data.", Toast.LENGTH_LONG).show();
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 
     private void setActionBar(){

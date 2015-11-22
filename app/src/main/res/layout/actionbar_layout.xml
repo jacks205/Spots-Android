@@ -8,6 +8,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="    PARKING STRUCTURES"
+        android:id="@+id/actionBarTitle"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true">
     </TextView>

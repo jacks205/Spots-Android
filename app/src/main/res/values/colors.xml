@@ -9,4 +9,7 @@
     <color name="gray">#4BFFFFFF</color>
     <color name="lightwhite">#E0FFFFFF</color>
     <color name="lightgray">#6B21263C</color>
+    <color name="unselected">#FF32373F</color>
+    <color name="selected">#FF2DD681</color>
+    <color name="darkgray">#1BFFFFFF</color>
 </resources>
