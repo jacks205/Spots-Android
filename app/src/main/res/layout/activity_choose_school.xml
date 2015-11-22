@@ -49,5 +49,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginTop="45dp"
-        android:layout_above="@+id/button" />
+        android:layout_above="@+id/button"
+        android:listSelector="@android:color/transparent"
+        android:dividerHeight="1dp"
+        android:divider="@color/dividerLineColor"/>
 </RelativeLayout>

@@ -14,5 +14,6 @@
     <color name="darkgray">#1BFFFFFF</color>
 
     <color name="textUnselectedGray">#25FFFFFF</color>
+    <color name="dividerLineColor">#09FFFFFF</color>
 
 </resources>
