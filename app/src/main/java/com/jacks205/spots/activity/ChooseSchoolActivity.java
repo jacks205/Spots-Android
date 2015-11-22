@@ -1,5 +1,6 @@
 package com.jacks205.spots.activity;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -42,22 +43,42 @@ public class ChooseSchoolActivity extends AppCompatActivity {
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                view.setBackgroundColor(getResources().getColor(R.color.black));
                 TextView name = (TextView) findViewById(R.id.schoolNameTextView);
-                name.setTextColor(Color.WHITE);
                 ImageView imageView = (ImageView) view.findViewById(R.id.imageView);
-                imageView.setImageResource(R.drawable.check);
+                if (schoolIndex == -1) {
+                    schoolIndex = position;
+                    view.setBackgroundColor(getResources().getColor(R.color.black));
+                    name.setTextColor(Color.WHITE);
+                    imageView.setImageResource(R.drawable.check);
+                    letsGoBtn.setBackgroundColor(getResources().getColor(R.color.selectedBtn));
+                    letsGoBtn.setTextColor(Color.WHITE);
+                } else {
+                    schoolIndex = -1;
+                    view.setBackgroundColor(Color.TRANSPARENT);
+                    name.setTextColor(getResources().getColor(R.color.textUnselectedGray));
+                    imageView.setImageResource(R.drawable.empty);
+                    letsGoBtn.setBackgroundColor(getResources().getColor(R.color.unselectedBtn));
+                    letsGoBtn.setTextColor(getResources().getColor(R.color.textUnselectedGray));
+                }
+
+
             }
         });
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
-//        preferences.edit().putString("school", "Chapman University");
 
-//        finish();
     }
 
     public void letsGoOnClick(View v){
-
+        if(schoolIndex == -1){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                    .setTitle("Please select a school!")
+                    .setPositiveButton("Ok", null);
+            builder.show();
+            return;
+        }
+        preferences.edit().putString("school", schools[schoolIndex]).apply();
+        finish();
     }
 
     @Override

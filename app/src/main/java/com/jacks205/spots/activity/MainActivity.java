@@ -41,10 +41,6 @@ public class MainActivity extends AppCompatActivity implements OnSpotsDataRetrie
         });
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
-
-        //TODO: remove
-        prefs.edit().remove("school").commit();
-
         String school = prefs.getString("school", null);
         if(school == null){
             Intent i = new Intent(MainActivity.this, ChooseSchoolActivity.class);
