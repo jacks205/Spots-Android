@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -36,7 +37,13 @@ public class ChooseSchoolActivity extends AppCompatActivity {
 
         setActionBar();
 
+        Typeface reg = Typeface.createFromAsset(getAssets(), "fonts/OpenSans-Regular.ttf");
+        ((TextView) findViewById(R.id.welcomeTextView)).setTypeface(reg);
+        ((TextView) findViewById(R.id.chooseLocationTextView)).setTypeface(reg);
+
+        Typeface semibold = Typeface.createFromAsset(getAssets(), "fonts/OpenSans-Semibold.ttf");
         letsGoBtn = (Button)findViewById(R.id.button);
+        letsGoBtn.setTypeface(semibold);
         listview = (ListView)findViewById(R.id.schoolListView);
         SchoolListAdapter schoolListAdapter = new SchoolListAdapter(this, schools);
         listview.setAdapter(schoolListAdapter);

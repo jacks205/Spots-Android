@@ -3,12 +3,14 @@ package com.jacks205.spots.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.preference.PreferenceManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.jacks205.spots.R;
 import com.jacks205.spots.Spots;
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements OnSpotsDataRetrie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setActionBar();
+
         listView = (ListView)findViewById(R.id.listView);
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.mainlayout);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.green, R.color.yellow, R.color.red);

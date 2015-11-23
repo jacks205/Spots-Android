@@ -1,6 +1,7 @@
 package com.jacks205.spots.adapters;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ public class SchoolListAdapter extends BaseAdapter {
 
     Context context;
     String[] schools;
+    Typeface openSans;
 
     private static LayoutInflater inflater;
 
@@ -30,6 +32,7 @@ public class SchoolListAdapter extends BaseAdapter {
         this.schools = schools;
         this.context = context;
         inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        openSans = Typeface.createFromAsset(context.getAssets(), "fonts/OpenSans-Regular.ttf");
     }
 
     @Override
@@ -48,6 +51,7 @@ public class SchoolListAdapter extends BaseAdapter {
         schoolView = inflater.inflate(R.layout.choose_school_layout, parent, false);
         
         TextView name = (TextView)schoolView.findViewById(R.id.schoolNameTextView);
+        name.setTypeface(openSans);
         name.setText(schools[position]);
 
         return schoolView;

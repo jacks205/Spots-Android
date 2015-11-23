@@ -1,6 +1,7 @@
 package com.jacks205.spots.adapters;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.jacks205.spots.model.ParkingStructure;
 import com.jacks205.spots.views.PieChartView;
 
 
+import java.lang.reflect.Type;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.Date;
@@ -26,6 +28,7 @@ public class SpotsListAdapter  extends BaseAdapter{
     Context context;
     ParkingStructure[] structures;
     Date lastUpdated;
+    Typeface openSansReg, openSansSemiBold, openSansLight;
 
     private static LayoutInflater inflater;
 
@@ -34,6 +37,10 @@ public class SpotsListAdapter  extends BaseAdapter{
         this.lastUpdated = lastUpdated;
         this.context = context;
         inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        openSansReg = Typeface.createFromAsset(context.getAssets(), "fonts/OpenSans-Regular.ttf");
+        openSansSemiBold = Typeface.createFromAsset(context.getAssets(), "fonts/OpenSans-Semibold.ttf");
+        openSansLight = Typeface.createFromAsset(context.getAssets(), "fonts/OpenSans-Light.ttf");
+
     }
 
     public void setStructures(ParkingStructure[] structures) {
@@ -70,52 +77,60 @@ public class SpotsListAdapter  extends BaseAdapter{
         holder.nameTextView = (TextView)rowView.findViewById(R.id.strutureName);
         String name = structures[position].getName();
         holder.nameTextView.setText(uppercaseEachWord(name));
+        holder.nameTextView.setTypeface(openSansReg);
 
         holder.totalSpotsTextView = (TextView) rowView.findViewById(R.id.totalSpotsTextView);
         String totalSpotsStr = structures[position].getAvailable() + " spots available";
         holder.totalSpotsTextView.setText(totalSpotsStr);
+        holder.totalSpotsTextView.setTypeface(openSansReg);
 
         holder.level1Tv = (TextView)rowView.findViewById(R.id.level1spots);
         int numSpots = levels[0].getAvailable();
         holder.level1Tv.setText(numSpots + " spots");
+        holder.level1Tv.setTypeface(openSansReg);
         holder.level1Label = (TextView)rowView.findViewById(R.id.level1Label);
         String labelName = levels[0].getName();
         holder.level1Label.setText("LEVEL " + labelName);
+        holder.level1Label.setTypeface(openSansReg);
 
 
         holder.level2Tv = (TextView)rowView.findViewById(R.id.level2spots);
         numSpots = levels[1].getAvailable();
         holder.level2Tv.setText(numSpots + " spots");
+        holder.level2Tv.setTypeface(openSansReg);
         holder.level2Label = (TextView)rowView.findViewById(R.id.level2Label);
         labelName = levels[1].getName();
         holder.level2Label.setText("LEVEL " + labelName);
-
+        holder.level2Label.setTypeface(openSansReg);
 
         if(totalLevels > 4){
 
             holder.level3Tv = (TextView)rowView.findViewById(R.id.level3spots);
             numSpots = levels[2].getAvailable();
             holder.level3Tv.setText(numSpots + " spots");
+            holder.level3Tv.setTypeface(openSansReg);
             holder.level3Label = (TextView)rowView.findViewById(R.id.level3Label);
             labelName = levels[2].getName();
             holder.level3Label.setText("LEVEL " + labelName);
-
+            holder.level3Label.setTypeface(openSansReg);
 
             holder.level4Tv = (TextView)rowView.findViewById(R.id.level4spots);
             numSpots = levels[3].getAvailable();
             holder.level4Tv.setText(numSpots + " spots");
+            holder.level4Tv.setTypeface(openSansReg);
             holder.level4Label = (TextView)rowView.findViewById(R.id.level4Label);
             labelName = levels[3].getName();
             holder.level4Label.setText("LEVEL " + labelName);
-
+            holder.level4Label.setTypeface(openSansReg);
 
             holder.level5Tv = (TextView)rowView.findViewById(R.id.level5spots);
             numSpots = levels[4].getAvailable();
             holder.level5Tv.setText(numSpots + " spots");
+            holder.level5Tv.setTypeface(openSansReg);
             holder.level5Label = (TextView)rowView.findViewById(R.id.level5Label);
             labelName = levels[4].getName();
             holder.level5Label.setText("LEVEL " + labelName);
-
+            holder.level5Label.setTypeface(openSansReg);
 
         }
 
@@ -124,6 +139,10 @@ public class SpotsListAdapter  extends BaseAdapter{
         percent = 100 - percent;
         NumberFormat formatter = new DecimalFormat("###");
         holder.availablePercent.setText(formatter.format(percent) + "%");
+        holder.availablePercent.setTypeface(openSansLight);
+
+        holder.fullView = (TextView)rowView.findViewById(R.id.fullView);
+        holder.fullView.setTypeface(openSansSemiBold);
 
         holder.pieChartView = (PieChartView)rowView.findViewById(R.id.pieChartView);
         holder.pieChartView.setLevelSegments(levels);
@@ -154,6 +173,7 @@ public class SpotsListAdapter  extends BaseAdapter{
             level5Tv;
 
         TextView availablePercent;
+        TextView fullView;
     }
 
 
