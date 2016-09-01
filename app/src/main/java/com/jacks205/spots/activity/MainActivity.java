@@ -12,6 +12,8 @@ import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.jacks205.spots.BuildConfig;
 import com.jacks205.spots.R;
 import com.jacks205.spots.Spots;
 import com.jacks205.spots.adapters.SpotsListAdapter;
@@ -44,6 +46,11 @@ public class MainActivity extends AppCompatActivity implements OnSpotsDataRetrie
         });
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        if(BuildConfig.DEBUG) {
+            prefs.edit().clear().commit();
+        }
+
         String school = prefs.getString("school", null);
         if(school == null){
             Intent i = new Intent(MainActivity.this, ChooseSchoolActivity.class);
@@ -64,13 +71,12 @@ public class MainActivity extends AppCompatActivity implements OnSpotsDataRetrie
 //        super.onBackPressed();
     }
 
-    public void onDataReceived(ParkingStructure[] structures, Date lastUpdated) {
+    public void onDataReceived(ParkingStructure[] structures) {
         if(spotsListAdapter == null){
-            spotsListAdapter = new SpotsListAdapter(MainActivity.this, structures, lastUpdated);
+            spotsListAdapter = new SpotsListAdapter(MainActivity.this, structures);
             listView.setAdapter(spotsListAdapter);
         } else {
             spotsListAdapter.setStructures(structures);
-            spotsListAdapter.setLastUpdated(lastUpdated);
             spotsListAdapter.notifyDataSetChanged();
         }
         mSwipeRefreshLayout.setRefreshing(false);

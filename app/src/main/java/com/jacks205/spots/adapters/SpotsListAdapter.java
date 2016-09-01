@@ -32,9 +32,8 @@ public class SpotsListAdapter  extends BaseAdapter{
 
     private static LayoutInflater inflater;
 
-    public SpotsListAdapter(Context context, ParkingStructure[] structures, Date lastUpdated) {
+    public SpotsListAdapter(Context context, ParkingStructure[] structures) {
         this.structures = structures;
-        this.lastUpdated = lastUpdated;
         this.context = context;
         inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         openSansReg = Typeface.createFromAsset(context.getAssets(), "fonts/OpenSans-Regular.ttf");
@@ -45,10 +44,6 @@ public class SpotsListAdapter  extends BaseAdapter{
 
     public void setStructures(ParkingStructure[] structures) {
         this.structures = structures;
-    }
-
-    public void setLastUpdated(Date lastUpdated) {
-        this.lastUpdated = lastUpdated;
     }
 
     @Override
@@ -90,7 +85,7 @@ public class SpotsListAdapter  extends BaseAdapter{
         holder.level1Tv.setTypeface(openSansReg);
         holder.level1Label = (TextView)rowView.findViewById(R.id.level1Label);
         String labelName = levels[0].getName();
-        holder.level1Label.setText("LEVEL " + labelName);
+        holder.level1Label.setText(labelName);
         holder.level1Label.setTypeface(openSansReg);
 
 
@@ -100,7 +95,7 @@ public class SpotsListAdapter  extends BaseAdapter{
         holder.level2Tv.setTypeface(openSansReg);
         holder.level2Label = (TextView)rowView.findViewById(R.id.level2Label);
         labelName = levels[1].getName();
-        holder.level2Label.setText("LEVEL " + labelName);
+        holder.level2Label.setText(labelName);
         holder.level2Label.setTypeface(openSansReg);
 
         if(totalLevels > 4){
@@ -111,7 +106,7 @@ public class SpotsListAdapter  extends BaseAdapter{
             holder.level3Tv.setTypeface(openSansReg);
             holder.level3Label = (TextView)rowView.findViewById(R.id.level3Label);
             labelName = levels[2].getName();
-            holder.level3Label.setText("LEVEL " + labelName);
+            holder.level3Label.setText(labelName);
             holder.level3Label.setTypeface(openSansReg);
 
             holder.level4Tv = (TextView)rowView.findViewById(R.id.level4spots);
@@ -120,7 +115,7 @@ public class SpotsListAdapter  extends BaseAdapter{
             holder.level4Tv.setTypeface(openSansReg);
             holder.level4Label = (TextView)rowView.findViewById(R.id.level4Label);
             labelName = levels[3].getName();
-            holder.level4Label.setText("LEVEL " + labelName);
+            holder.level4Label.setText(labelName);
             holder.level4Label.setTypeface(openSansReg);
 
             holder.level5Tv = (TextView)rowView.findViewById(R.id.level5spots);
@@ -129,7 +124,7 @@ public class SpotsListAdapter  extends BaseAdapter{
             holder.level5Tv.setTypeface(openSansReg);
             holder.level5Label = (TextView)rowView.findViewById(R.id.level5Label);
             labelName = levels[4].getName();
-            holder.level5Label.setText("LEVEL " + labelName);
+            holder.level5Label.setText(labelName);
             holder.level5Label.setTypeface(openSansReg);
 
         }

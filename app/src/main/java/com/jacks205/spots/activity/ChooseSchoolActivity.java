@@ -27,7 +27,7 @@ public class ChooseSchoolActivity extends AppCompatActivity {
     Button letsGoBtn;
     ListView listview;
 
-    String[] schools = new String[]{ "Chapman University" };
+    String[] schools = new String[]{ "Chapman University", "Cal State University, Fullerton" };
     int schoolIndex = -1;
 
     @Override

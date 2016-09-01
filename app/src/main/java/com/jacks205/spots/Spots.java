@@ -50,7 +50,7 @@ public class Spots {
 
         @Override
         protected Object doInBackground(Object[] params) {
-            InputStream in = null;
+            InputStream in;
             try{
                 URL url = new URL(Constants.URL);
                 in = url.openStream();
@@ -72,12 +72,12 @@ public class Spots {
 
             boolean type = o instanceof JsonResponse;
             if (!type){
-                listener.onDataError(new Exception(("Parsing error occured.")));
+                listener.onDataError(new Exception(("Parsing error occurred.")));
                 return;
             }
             JsonResponse resp = (JsonResponse)o;
             //We can return the parking structures and lastUpdated time
-            listener.onDataReceived(resp.structures, resp.lastUpdated);
+            listener.onDataReceived(resp.structures);
         }
 
         private JsonResponse parseJson(InputStream in) throws IOException {
@@ -88,10 +88,8 @@ public class Spots {
             reader.beginObject();
             while(reader.hasNext()) {
                 String key = reader.nextName();
-                if(key.equals("structures")) {
+                if(key.equals("Structures")) {
                     parseParkingStructures(reader, structureList);
-                }else if(key.equals("lastUpdatedISO")){
-                    response.lastUpdated = parseDate(reader);
                 }else{
                     reader.skipValue();
                 }
@@ -123,21 +121,21 @@ public class Spots {
             while (reader.hasNext()) {
                 //Levels
                 String levelKey = reader.nextName();
-                if(levelKey.equals("levels")) {
+                if(levelKey.equals("Levels")) {
                     reader.beginArray();
                     while (reader.hasNext()) {
                         ParkingLevel level = parseParkingLevel(reader);
                         levelList.add(level);
                     }
                     reader.endArray();
-                }else if(levelKey.equals("available")){
+                }else if(levelKey.equals("CurrentCount")){
                     structureAvailable = reader.nextInt();
-                }else if(levelKey.equals("name")){
+                }else if(levelKey.equals("Name")){
                     structureName = reader.nextString();
-                }else if(levelKey.equals("nickname")){
-                    reader.skipValue();
-                }else if(levelKey.equals("total")){
+                }else if(levelKey.equals("Capacity")){
                     structureTotal = reader.nextInt();
+                }else {
+                    reader.skipValue();
                 }
             }
             ParkingLevel[] levels = levelList.toArray(new ParkingLevel[levelList.size()]);
@@ -152,14 +150,17 @@ public class Spots {
             while (reader.hasNext()) {
                 String name = reader.nextName();
                 switch (name) {
-                    case "available":
+                    case "CurrentCount":
                         available = reader.nextInt();
                         break;
-                    case "name":
+                    case "FriendlyName":
                         levelName = reader.nextString();
                         break;
-                    case "total":
+                    case "Capacity":
                         total = reader.nextInt();
+                        break;
+                    default:
+                        reader.skipValue();
                         break;
                 }
             }
@@ -180,7 +181,6 @@ public class Spots {
 
         class JsonResponse {
             public ParkingStructure[] structures;
-            public Date lastUpdated;
         }
 
 
