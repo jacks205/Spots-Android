@@ -15,5 +15,7 @@
         android:layout_centerHorizontal="true"
         android:divider="@color/dividerColor"
         android:dividerHeight="1dp"
+        android:paddingBottom="20dp"
+        android:clipToPadding="false"
         />
 </android.support.v4.widget.SwipeRefreshLayout>

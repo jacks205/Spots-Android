@@ -2,11 +2,17 @@ package com.jacks205.spots;
 
 import android.os.AsyncTask;
 import android.util.JsonReader;
+import android.util.Log;
 
 import com.jacks205.spots.constants.Constants;
 import com.jacks205.spots.listener.OnSpotsDataRetrievedListener;
 import com.jacks205.spots.model.ParkingLevel;
 import com.jacks205.spots.model.ParkingStructure;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,22 +35,28 @@ public class Spots {
         return ourInstance;
     }
 
+    public SpotsSchool selectedSchool;
+
     private Spots() {
 
     }
 
-
     public void getParkingData(OnSpotsDataRetrievedListener listener){
-        RetrieveJsonTask task = new RetrieveJsonTask(listener);
+        AsyncTask task;
+        switch (selectedSchool) {
+            case CSUF:
+                task = new CSUFRetrieveTask(listener);
+                break;
+            default:
+                task = new ChapmanRetrieveJsonTask(listener);
+        }
         task.execute();
     }
 
-
-    class RetrieveJsonTask extends AsyncTask {
-
+    class CSUFRetrieveTask extends AsyncTask {
         OnSpotsDataRetrievedListener listener;
 
-        public RetrieveJsonTask(OnSpotsDataRetrievedListener listener){
+        public CSUFRetrieveTask(OnSpotsDataRetrievedListener listener){
             this.listener = listener;
         }
 
@@ -52,7 +64,83 @@ public class Spots {
         protected Object doInBackground(Object[] params) {
             InputStream in;
             try{
-                URL url = new URL(Constants.URL);
+                HTMLResponse res = parseHTML(Constants.CSUF_URL);
+                return res;
+            }catch (Exception e){
+                return e;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            super.onPostExecute(o);
+
+            if(o instanceof Exception){
+                listener.onDataError((Exception)o);
+                return;
+            }
+
+            boolean type = o instanceof HTMLResponse;
+            if (!type){
+                listener.onDataError(new Exception(("Parsing error occurred.")));
+                return;
+            }
+            HTMLResponse resp = (HTMLResponse)o;
+            //We can return the parking structures and lastUpdated time
+            listener.onDataReceived(resp.structures);
+        }
+
+        private HTMLResponse parseHTML(String url) throws IOException {
+            Document doc = Jsoup.connect(url).get();
+            Elements tableRows = doc.getElementsByTag("tr");
+            List<ParkingStructure> structureList = new ArrayList<ParkingStructure>();
+            for (Element tr: tableRows) {
+                Elements tableDatas = tr.getElementsByTag("td");
+
+                String name = tableDatas.first().getElementsByClass("LocationName").first().text();
+                int available = Integer.parseInt(tableDatas.get(1).child(0).text());
+                int total = Integer.parseInt(tableDatas.first().getElementsByClass("TotalSpaces").first().child(1).text());
+                String lastUpdated = tableDatas.first().getElementsByClass("LastUpdated").first().text();
+                Date lastUpdatedDate = parseDate(lastUpdated);
+                ParkingLevel level = new ParkingLevel(name, available, total);
+                ParkingLevel[] levels = new ParkingLevel[] { level };
+                ParkingStructure structure = new ParkingStructure(name, available, total, lastUpdatedDate, levels);
+                structureList.add(structure);
+            }
+            HTMLResponse res = new HTMLResponse();
+            res.structures = structureList.toArray(new ParkingStructure[structureList.size()]);
+            return res;
+        }
+
+        private Date parseDate(String dateStr) throws IOException {
+            //Date with Java 7: http://stackoverflow.com/a/18217193/4684652
+            try {
+                DateFormat df1 = new SimpleDateFormat("M/dd/yyyy h:mm:s a");
+                return df1.parse(dateStr);
+            }catch(ParseException e) {
+                return new Date();
+            }
+        }
+
+        class HTMLResponse {
+            ParkingStructure[] structures;
+        }
+    }
+
+
+    class ChapmanRetrieveJsonTask extends AsyncTask {
+
+        OnSpotsDataRetrievedListener listener;
+
+        public ChapmanRetrieveJsonTask(OnSpotsDataRetrievedListener listener){
+            this.listener = listener;
+        }
+
+        @Override
+        protected Object doInBackground(Object[] params) {
+            InputStream in;
+            try{
+                URL url = new URL(Constants.CU_URL);
                 in = url.openStream();
                 JsonResponse response = parseJson(in);
                 return response;

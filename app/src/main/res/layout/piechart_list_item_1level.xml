@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="300dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Lastinger"
+        android:id="@+id/strutureName"
+        android:textColor="@color/lightwhite"
+        android:gravity="center"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="15dp"
+        android:textSize="18dp"/>
+
+    <RelativeLayout
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_below="@+id/totalSpotsTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="39dp"
+        android:id="@+id/pieChartViewLayout">
+
+        <com.jacks205.spots.views.PieChartView
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:id="@+id/pieChartView"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="41%"
+            android:id="@+id/availablePercent"
+            android:background="@android:color/transparent"
+            android:textColor="@color/lightgray"
+            android:textSize="16dp"
+            android:layout_marginBottom="6dp"
+            android:gravity="center"
+            android:layout_above="@+id/fullView"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="FULL"
+            android:id="@+id/fullView"
+            android:background="@android:color/transparent"
+            android:textColor="@color/lightgray"
+            android:textSize="12dp"
+            android:layout_marginBottom="55dp"
+            android:gravity="center"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="147 spots available"
+        android:textColor="@color/gray"
+        android:id="@+id/totalSpotsTextView"
+        android:layout_below="@+id/strutureName"
+        android:layout_centerHorizontal="true"
+        android:textSize="13.5dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Updated 999 minutes ago"
+        android:textColor="@color/gray"
+        android:id="@+id/lastUpdatedTextView"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="15dp"
+        android:textSize="12dp"/>
+
+</RelativeLayout>

@@ -19,6 +19,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.jacks205.spots.R;
+import com.jacks205.spots.Spots;
+import com.jacks205.spots.SpotsSchool;
 import com.jacks205.spots.adapters.SchoolListAdapter;
 
 public class ChooseSchoolActivity extends AppCompatActivity {
@@ -26,6 +28,7 @@ public class ChooseSchoolActivity extends AppCompatActivity {
     SharedPreferences preferences;
     Button letsGoBtn;
     ListView listview;
+    View lastSelectedView;
 
     String[] schools = new String[]{ "Chapman University", "Cal State University, Fullerton" };
     int schoolIndex = -1;
@@ -50,25 +53,31 @@ public class ChooseSchoolActivity extends AppCompatActivity {
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                TextView name = (TextView) findViewById(R.id.schoolNameTextView);
+                if (lastSelectedView != null)
+                    deselectLastView(lastSelectedView);
+                selectView(view);
+                schoolIndex = position;
+                lastSelectedView = view;
+            }
+
+            private void selectView(View view) {
+                TextView name = (TextView) view.findViewById(R.id.schoolNameTextView);
                 ImageView imageView = (ImageView) view.findViewById(R.id.imageView);
-                if (schoolIndex == -1) {
-                    schoolIndex = position;
-                    view.setBackgroundColor(getResources().getColor(R.color.black));
-                    name.setTextColor(Color.WHITE);
-                    imageView.setImageResource(R.drawable.check);
-                    letsGoBtn.setBackgroundColor(getResources().getColor(R.color.selectedBtn));
-                    letsGoBtn.setTextColor(Color.WHITE);
-                } else {
-                    schoolIndex = -1;
-                    view.setBackgroundColor(Color.TRANSPARENT);
-                    name.setTextColor(getResources().getColor(R.color.textUnselectedGray));
-                    imageView.setImageResource(R.drawable.empty);
-                    letsGoBtn.setBackgroundColor(getResources().getColor(R.color.unselectedBtn));
-                    letsGoBtn.setTextColor(getResources().getColor(R.color.textUnselectedGray));
-                }
+                view.setBackgroundColor(getResources().getColor(R.color.black));
+                name.setTextColor(Color.WHITE);
+                imageView.setImageResource(R.drawable.check);
+                letsGoBtn.setBackgroundColor(getResources().getColor(R.color.selectedBtn));
+                letsGoBtn.setTextColor(Color.WHITE);
+            }
 
-
+            private void deselectLastView(View view) {
+                TextView name = (TextView) view.findViewById(R.id.schoolNameTextView);
+                ImageView imageView = (ImageView) view.findViewById(R.id.imageView);
+                view.setBackgroundColor(Color.TRANSPARENT);
+                name.setTextColor(getResources().getColor(R.color.textUnselectedGray));
+                imageView.setImageResource(R.drawable.empty);
+                letsGoBtn.setBackgroundColor(getResources().getColor(R.color.unselectedBtn));
+                letsGoBtn.setTextColor(getResources().getColor(R.color.textUnselectedGray));
             }
         });
 
@@ -84,7 +93,16 @@ public class ChooseSchoolActivity extends AppCompatActivity {
             builder.show();
             return;
         }
-        preferences.edit().putString("school", schools[schoolIndex]).apply();
+        String school = schools[schoolIndex];
+        preferences.edit().putString("school", school).apply();
+        Spots spots = Spots.getInstance();
+        switch (school) {
+            case "Cal State University, Fullerton":
+                spots.selectedSchool = SpotsSchool.CSUF;
+                break;
+            default:
+                spots.selectedSchool = SpotsSchool.CHAPMAN;
+        }
         finish();
     }
 

@@ -1,5 +1,10 @@
 package com.jacks205.spots.model;
 
+import android.text.format.DateUtils;
+
+import java.util.Arrays;
+import java.util.Date;
+
 /**
  * Created by Ian on 11/4/2015.
  */
@@ -9,12 +14,27 @@ public class ParkingStructure {
     private int available;
     private int total;
     private ParkingLevel[] levels;
+    private Date lastUpdated;
 
     public ParkingStructure(String name, int available, int total, ParkingLevel[] levels) {
         this.name = name;
         this.available = available;
         this.total = total;
+        this.levels = Arrays.copyOfRange(levels, 1, levels.length);
+    }
+
+    public ParkingStructure(String name, int available, int total, Date lastUpdated, ParkingLevel[] levels) {
+        this.name = name;
+        this.available = available;
+        this.total = total;
         this.levels = levels;
+        this.lastUpdated = lastUpdated;
+    }
+
+    public String getLastUpdatedString() {
+        if(lastUpdated == null)
+            return "";
+        return DateUtils.getRelativeTimeSpanString(lastUpdated.getTime(), new Date().getTime(), DateUtils.MINUTE_IN_MILLIS).toString();
     }
 
     public String getName() {
@@ -47,5 +67,13 @@ public class ParkingStructure {
 
     public void setLevels(ParkingLevel[] levels) {
         this.levels = levels;
+    }
+
+    public Date getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setLastUpdated(Date lastUpdated) {
+        this.lastUpdated = lastUpdated;
     }
 }
