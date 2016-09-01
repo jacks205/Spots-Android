@@ -8,28 +8,44 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.jacks205.spots.BuildConfig;
 import com.jacks205.spots.R;
 import com.jacks205.spots.Spots;
 import com.jacks205.spots.SpotsSchool;
 import com.jacks205.spots.adapters.SpotsListAdapter;
+import com.jacks205.spots.constants.Constants;
 import com.jacks205.spots.listener.OnSpotsDataRetrievedListener;
 import com.jacks205.spots.model.ParkingStructure;
+
+import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity implements OnSpotsDataRetrievedListener{
 
     ListView listView;
     SwipeRefreshLayout mSwipeRefreshLayout;
     SpotsListAdapter spotsListAdapter;
+    AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setActionBar();
+
+        final Fabric fabric = new Fabric.Builder(this)
+                .kits(new Crashlytics())
+                .debuggable(true)
+                .build();
+        Fabric.with(fabric);
 
         listView = (ListView)findViewById(R.id.listView);
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.mainlayout);
@@ -42,6 +58,27 @@ public class MainActivity extends AppCompatActivity implements OnSpotsDataRetrie
                 spots.getParkingData(MainActivity.this);
             }
         });
+
+        MobileAds.initialize(getApplicationContext(), Constants.ADMOB_AD_ID);
+
+        mAdView = (AdView) findViewById(R.id.adView);
+        mAdView.setVisibility(View.INVISIBLE);
+        mAdView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                mAdView.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAdFailedToLoad(int i) {
+                super.onAdFailedToLoad(i);
+                mAdView.setVisibility(View.INVISIBLE);
+            }
+        });
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+        mAdView.pause();
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -67,11 +104,42 @@ public class MainActivity extends AppCompatActivity implements OnSpotsDataRetrie
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        if (mAdView != null) {
+            int adHeight = mAdView.getHeight();
+            listView.setPadding(0, 0, 0, (int)(adHeight * 1.5));
+        }
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
+        if(spotsListAdapter != null)
+            spotsListAdapter.notifyDataSetChanged();
+        if (mAdView != null)
+            mAdView.resume();
         final Spots spots = Spots.getInstance();
         if(spots.selectedSchool != null)
             spots.getParkingData(this);
+    }
+
+    /** Called when leaving the activity */
+    @Override
+    public void onPause() {
+        if (mAdView != null) {
+            mAdView.pause();
+        }
+        super.onPause();
+    }
+
+    /** Called before the activity is destroyed */
+    @Override
+    public void onDestroy() {
+        if (mAdView != null) {
+            mAdView.destroy();
+        }
+        super.onDestroy();
     }
 
     @Override

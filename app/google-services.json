@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1030470703601",
+    "firebase_url": "https://spots-6c216.firebaseio.com",
+    "project_id": "spots-6c216",
+    "storage_bucket": "spots-6c216.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1030470703601:android:8147adfb537d07ec",
+        "android_client_info": {
+          "package_name": "com.jacks205.spots"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1030470703601-ctflifp5a18dldp9aoo22ajg5sgusv6e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAosK7O_f7LJYzHX1nq5u-ilRzqB82OqP8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
