@@ -1,7 +1,6 @@
-package com.jacks205.spots.activity;
+package com.jacks205.spotsparking.activity;
 
 import android.app.AlertDialog;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -9,8 +8,6 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -18,10 +15,10 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.jacks205.spots.R;
-import com.jacks205.spots.Spots;
-import com.jacks205.spots.SpotsSchool;
-import com.jacks205.spots.adapters.SchoolListAdapter;
+import com.jacks205.spotsparking.R;
+import com.jacks205.spotsparking.Spots;
+import com.jacks205.spotsparking.SpotsSchool;
+import com.jacks205.spotsparking.adapters.SchoolListAdapter;
 
 public class ChooseSchoolActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.jacks205.spots;
+package com.jacks205.spotsparking;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

@@ -1,4 +1,4 @@
-package com.jacks205.spots.activity;
+package com.jacks205.spotsparking.activity;
 
 
 import android.content.Intent;
@@ -17,14 +17,13 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
-import com.jacks205.spots.BuildConfig;
-import com.jacks205.spots.R;
-import com.jacks205.spots.Spots;
-import com.jacks205.spots.SpotsSchool;
-import com.jacks205.spots.adapters.SpotsListAdapter;
-import com.jacks205.spots.constants.Constants;
-import com.jacks205.spots.listener.OnSpotsDataRetrievedListener;
-import com.jacks205.spots.model.ParkingStructure;
+import com.jacks205.spotsparking.R;
+import com.jacks205.spotsparking.Spots;
+import com.jacks205.spotsparking.SpotsSchool;
+import com.jacks205.spotsparking.adapters.SpotsListAdapter;
+import com.jacks205.spotsparking.constants.Constants;
+import com.jacks205.spotsparking.listener.OnSpotsDataRetrievedListener;
+import com.jacks205.spotsparking.model.ParkingStructure;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -41,6 +40,7 @@ public class MainActivity extends AppCompatActivity implements OnSpotsDataRetrie
         setContentView(R.layout.activity_main);
         setActionBar();
 
+        MobileAds.initialize(this, Constants.ADMOB_AD_ID);
         final Fabric fabric = new Fabric.Builder(this)
                 .kits(new Crashlytics())
                 .debuggable(true)
@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity implements OnSpotsDataRetrie
             }
         });
 
-        MobileAds.initialize(getApplicationContext(), Constants.ADMOB_AD_ID);
 
         mAdView = (AdView) findViewById(R.id.adView);
         mAdView.setVisibility(View.INVISIBLE);
@@ -80,11 +79,8 @@ public class MainActivity extends AppCompatActivity implements OnSpotsDataRetrie
         mAdView.loadAd(adRequest);
         mAdView.pause();
 
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-        if(BuildConfig.DEBUG) {
-            prefs.edit().clear().commit();
-        }
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         String school = prefs.getString("school", null);
         if(school == null){
@@ -115,8 +111,6 @@ public class MainActivity extends AppCompatActivity implements OnSpotsDataRetrie
     @Override
     protected void onResume() {
         super.onResume();
-        if(spotsListAdapter != null)
-            spotsListAdapter.notifyDataSetChanged();
         if (mAdView != null)
             mAdView.resume();
         final Spots spots = Spots.getInstance();

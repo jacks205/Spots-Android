@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1030470703601:android:8147adfb537d07ec",
+        "mobilesdk_app_id": "1:1030470703601:android:321f92962c1de045",
         "android_client_info": {
-          "package_name": "com.jacks205.spots"
+          "package_name": "com.jacks205.spotsparking"
         }
       },
       "oauth_client": [

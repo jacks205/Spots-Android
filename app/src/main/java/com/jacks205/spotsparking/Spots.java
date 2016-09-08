@@ -1,13 +1,12 @@
-package com.jacks205.spots;
+package com.jacks205.spotsparking;
 
 import android.os.AsyncTask;
 import android.util.JsonReader;
-import android.util.Log;
 
-import com.jacks205.spots.constants.Constants;
-import com.jacks205.spots.listener.OnSpotsDataRetrievedListener;
-import com.jacks205.spots.model.ParkingLevel;
-import com.jacks205.spots.model.ParkingStructure;
+import com.jacks205.spotsparking.constants.Constants;
+import com.jacks205.spotsparking.listener.OnSpotsDataRetrievedListener;
+import com.jacks205.spotsparking.model.ParkingLevel;
+import com.jacks205.spotsparking.model.ParkingStructure;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

@@ -7,7 +7,7 @@
     android:layout_marginTop="39dp"
     android:id="@+id/pieChartViewLayout">
 
-    <com.jacks205.spots.views.PieChartView
+    <com.jacks205.spotsparking.views.PieChartView
         android:layout_gravity="center_horizontal|center_vertical"
         android:layout_width="150dp"
         android:layout_height="150dp"

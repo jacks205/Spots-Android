@@ -1,4 +1,4 @@
-package com.jacks205.spots.adapters;
+package com.jacks205.spotsparking.adapters;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -8,14 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.jacks205.spots.R;
-import com.jacks205.spots.model.ParkingLevel;
-import com.jacks205.spots.model.ParkingStructure;
-import com.jacks205.spots.views.PieChartView;
-
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
-import java.util.Date;
+import com.jacks205.spotsparking.R;
 
 /**
  * Created by markjackson on 11/21/15.

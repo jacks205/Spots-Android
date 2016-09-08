@@ -1,4 +1,4 @@
-package com.jacks205.spots.model;
+package com.jacks205.spotsparking.model;
 
 import android.text.format.DateUtils;
 

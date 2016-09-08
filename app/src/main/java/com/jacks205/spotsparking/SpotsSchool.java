@@ -1,4 +1,4 @@
-package com.jacks205.spots;
+package com.jacks205.spotsparking;
 
 /**
  * Created by Ian on 8/31/2016.

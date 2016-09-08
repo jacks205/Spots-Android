@@ -1,4 +1,4 @@
-package com.jacks205.spots.views;
+package com.jacks205.spotsparking.views;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -9,7 +9,7 @@ import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.jacks205.spots.model.ParkingLevel;
+import com.jacks205.spotsparking.model.ParkingLevel;
 
 /**
  * Created by markjackson on 11/14/15.
